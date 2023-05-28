@@ -2,6 +2,7 @@
 #include <conio.h>
 #include <stdbool.h>
 #include <stdlib.h>
+#include <math.h>
 
 void swap(int *a, int *b){
    int temp = *a;
@@ -20,9 +21,36 @@ void insert(int arr[], int *last_index, int key){
    (*last_index)++;
 }
 
+long long int power(int base, int exponent) {
+    long long int result = 1;
+
+    for (int i = 0; i < exponent; i++) {
+        result *= base;
+    }
+
+    return result;
+}
+
 void print(int arr[]){
-   for(int i=0;i<100; i++){
-      printf("%d ", arr[i]);
+   int big_bar = 16;
+   int small_bar = 32;
+   int rows = 5;
+   int counter = 0;
+   for(int i=0; i<rows; i++){
+      for(int j=0; j<big_bar; j++){
+         printf("  ");
+      }
+      big_bar/=2;
+      for(int k=0; k<power(2, i); k++){
+         if(arr[counter]!=0)printf("%d", arr[counter]);
+         else printf("NL");
+         for(int l=0; l<small_bar; l++){
+            printf("  ");
+         }
+         counter++;
+      }
+      printf("\n");
+      small_bar/=2;
    }
    system("pause");
 }
@@ -77,8 +105,11 @@ int main() {
          }
          int inp; printf("Input your data [1-100]: "); scanf("%d",&inp); getchar();
          insert(max_heap_arr, &data_count,inp);
+         printf("Insert Success\n\n");
+         system("pause");
          continue;
       }else if(ch==2){
+         puts("Only 5 levels are shown");
          print(max_heap_arr);
          continue;
       }else if(ch==3){
